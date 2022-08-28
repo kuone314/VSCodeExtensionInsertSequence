@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('sequence-number.helloWorld', () => {
-	});
 
-	context.subscriptions.push(disposable);
+  context.subscriptions.push(vscode.commands.registerCommand('sequence-number.helloWorld', () => {
+  }));
 }
 
-export function deactivate() {}
+export function deactivate() { }
