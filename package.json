@@ -1,7 +1,7 @@
 {
   "name": "sequence-number",
 	"displayName": "Insert Sequence",
-	"description": "",
+	"description": "Insert sequence. Numbers,Chars,Months,etc...",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.70.0"
