@@ -1,6 +1,6 @@
 {
   "name": "sequence-number",
-	"displayName": "sequence number",
+	"displayName": "Insert Sequence",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:sequence-number.helloWorld"
+        "onCommand:insert-sequence.execute"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "sequence-number.helloWorld",
-				"title": "Hello World"
+				"command": "insert-sequence.execute",
+				"title": "Insert sequence (number,char,months,etc...)"
 			}
 		]
 	},
