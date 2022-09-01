@@ -1,70 +1,133 @@
-# sequence-number README
+![badge](https://img.shields.io/github/issues/kuone314/VSCodeExtensionInsertSequence)
+![badge](https://img.shields.io/github/forks/kuone314/VSCodeExtensionInsertSequence)
+![badge](https://img.shields.io/github/stars/kuone314/VSCodeExtensionInsertSequence)
 
-This is the README for your extension "sequence-number". After writing up a brief description, we recommend including the following sections.
+# Insert Sequence
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+![Sample](Doc/Demonstration.gif)
 
-For example if there is an image subfolder under your extension project workspace:
+* Insert sequence at cursors.
+カーソル位置に連番を入力します。
 
-\!\[feature X\]\(images/feature-x.png\)
+# Examples
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+<!-- ## Insert sequence numbers -->
+## Numbers
 
-## Requirements
+<!-- * 数字を入力すると、数字の連番を入力します。 -->
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+input `5`
+```
+5
+6
+7
+```
 
-## Extension Settings
+<!-- * 頭に0を付けると、0埋めされます。 -->
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Padding
+input `05`
+```
+05
+06
+07
+```
 
-For example:
 
-This extension contributes the following settings:
+<!-- ## Insert sequence chars -->
+## Alphabets
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+<!-- * アルファベット1文字を指定すると、アルファベットの連番を入力できます。 -->
 
-## Known Issues
+input `x`
+```
+x
+y
+z
+```
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Others
+<!-- ## Insert sequence somethings -->
+<!-- * 曜日,月名,メタ構文変数の入力を入力できます。 -->
 
-## Release Notes
+input `June`
+```
+June
+July
+August
+```
 
-Users appreciate release notes as you update your extension.
+input `foo`
+```
+foo
+bar
+baz
+```
 
-### 1.0.0
+* 以下のものが利用できます。
 
-Initial release of ...
+months
 
-### 1.0.1
+```
+January,February,March,April,May,June,July,August,
+September,October,November,December,
+```
+```
+Jan.,Feb.,Mar.,Apr.,May,Jun.,Jul.,Aug.,Sep.,Oct.,Nov.,Dec.
+```
 
-Fixed issue #.
+days
+```
+Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
+```
+```
+Sun.,Mon.,Tue.,Wed.,Thu.,Fri.,Sat.
+```
 
-### 1.1.0
+metasyntactic variable
 
-Added features X, Y, and Z.
+```
+foo,bar,baz,qux,quux,corge,grault,garply,waldo,fred,plugh,xyzzy,thud
+```
 
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
+```
+hoge,fuga,piyo,hogera,hogehoge
+```
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+Dummy Nmaes
+```
+Alice,Bob,Carol,Dave,Ellen,Frank
+```
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
 
-## Working with Markdown
+<!-- * カンマ等で区切ることで、ステップ数を指定できます。 -->
+  <!-- * 区切りは、カンマ,コロン,スペースが使えます。 -->
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+## Step
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+* For specify step, separate with comma,colon,space.
 
-### For more information
+input `5,5`
+```
+5
+10
+15
+```
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+input `Monday 2`
+```
+Monday
+Wednesday
+Friday
+```
 
-**Enjoy!**
+# Commands
+* insert-sequence.execute
+  * Default keymap : none
+
+
+# Link
+
+* [GitHub](https://github.com/kuone314/VSCodeExtensionInsertSequence)
+* [Twitter](https://twitter.com/KuoneTech)

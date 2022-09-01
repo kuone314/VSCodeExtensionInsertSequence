@@ -2,7 +2,8 @@
   "name": "sequence-number",
 	"displayName": "Insert Sequence",
 	"description": "Insert sequence. Numbers,Chars,Months,etc...",
-	"version": "0.0.1",
+  "icon": "doc/icon.png",
+	"version": "1.0.1",
 	"repository": "https://github.com/kuone314/VSCodeExtensionInsertSequence",
 	"publisher": "kuone",
 	"engines": {
