@@ -5,7 +5,7 @@
 # Insert Sequence
 
 
-![Sample](Doc/Demonstration.gif)
+![Sample](doc/Demonstration.gif)
 
 * Insert sequence at cursors.
 カーソル位置に連番を入力します。
