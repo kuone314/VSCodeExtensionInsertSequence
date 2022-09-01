@@ -78,10 +78,19 @@ function parseInput(input: string): ((idx: number) => string) | null {
 
 function genSequenceNumber(startNum: number, step: number, digit: number): ((idx: number) => string) {
   return (idx: number) => {
-    const valStr = (startNum + idx * step).toString();
+    const val = (startNum + idx * step);
+    const valStr = val.toString();
+
     const digitDiff = (digit - valStr.length);
-    const padding = Math.max(digitDiff, 0);
-    return "0".repeat(padding) + valStr;
+    if (digitDiff <= 0) { return valStr; }
+
+    if (val >= 0) {
+      return "0".repeat(digitDiff) + valStr;
+    }else{
+
+      return "-" + "0".repeat(digitDiff) + (-val).toString();
+    }
+
   };
 }
 
