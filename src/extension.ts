@@ -229,6 +229,14 @@ const metaVarJp = [
   "hogehoge",
 ];
 const dummyNames = [
+  "Alice",
+  "Bob",
+  "Carol",
+  "Dave",
+  "Ellen",
+  "Frank",
+];
+const dummyNamesLower = [
   "alice",
   "bob",
   "carol",
@@ -241,6 +249,6 @@ const sequenceListAry = [
   lowerAlphabets, upperAlphabets,
   daysShort, daysShortLower, days, daysLower,
   monthsShort, monthsShortLower, months, monthsLower,
-  metaVar, metaVarJp, dummyNames,
+  metaVar, metaVarJp, dummyNames, dummyNamesLower,
 ];
 
