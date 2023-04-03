@@ -23,6 +23,16 @@ async function commandImpl(editor: vscode.TextEditor) {
   editor.selections = editor.selections.slice().sort(sorter);
   const orgStrs = editor.selections.map(selection => editor.document.getText(selection));
 
+  editor.edit(
+    function (builder) {
+      editor.selections.forEach(function (selection, index) {
+        builder.replace(selection, "");
+      });
+    },
+    { undoStopBefore: false, undoStopAfter: false }
+  );
+
+
   const inputOptions: vscode.InputBoxOptions = {
     placeHolder: "e.g. 0/a/Monday/June/foo/003,-6",
     validateInput: function (input) {
@@ -52,6 +62,16 @@ function editImpl(editor: vscode.TextEditor, input: string, orgStrs: string[]) {
     },
     { undoStopBefore: false, undoStopAfter: false }
   );
+
+  let selections = editor.selections.slice();
+  for (let index = 0; index < selections.length; index++) {
+    const strNum = strGenerator(index).length;
+    selections[index] = new vscode.Selection(
+      selections[index].start,
+      selections[index].start.translate(0, strGenerator(index).length)
+    );
+  }
+  editor.selections = selections;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +106,7 @@ function genSequenceNumber(startNum: number, step: number, digit: number): ((idx
 
     if (val >= 0) {
       return "0".repeat(digitDiff) + valStr;
-    }else{
+    } else {
 
       return "-" + "0".repeat(digitDiff) + (-val).toString();
     }
