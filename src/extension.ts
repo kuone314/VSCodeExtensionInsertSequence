@@ -140,6 +140,59 @@ const lowerAlphabets = [
 const upperAlphabets = [
   "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
 ];
+const upperGreek = [
+  "Alpha",
+  "Beta",
+  "Gamma",
+  "Delta",
+  "Epsilon",
+  "Zeta",
+  "Eta",
+  "Theta",
+  "Iota",
+  "Kappa",
+  "Lambda",
+  "Mu",
+  "Nu",
+  "Xi",
+  "Omicron",
+  "Pi",
+  "Rho",
+  "Sigma",
+  "Tau",
+  "Upsilon",
+  "Phi",
+  "Chi",
+  "Psi",
+  "Omega",
+];
+const lowerGreek = upperGreek.map(x => x.toLocaleLowerCase());
+
+const upperHebrew = [
+  "Alef",
+  "Bet",
+  "Gimel",
+  "Dalet",
+  "He",
+  "Vav",
+  "Zayin",
+  "Chet",
+  "Tet",
+  "Yod",
+  "Kaf",
+  "Lamed",
+  "Mem",
+  "Nun",
+  "Samech",
+  "Ayin",
+  "Pe",
+  "Tsadi",
+  "Qof",
+  "Resh",
+  "Shin",
+  "Tav",
+];
+const lowerHebrew = upperHebrew.map(x => x.toLocaleLowerCase());
 
 const days = [
   "Sunday",
@@ -279,5 +332,6 @@ const sequenceListAry = [
   daysShort, daysShortLower, days, daysLower,
   monthsShort, monthsShortLower, months, monthsLower,
   metaVar, metaVarJp, dummyNames, dummyNamesLower,
+  lowerGreek, upperGreek, lowerHebrew, upperHebrew
 ];
 
