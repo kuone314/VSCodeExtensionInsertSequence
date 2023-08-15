@@ -124,7 +124,7 @@ function genFromSwqList(seqList: string[], sttIdx: number, step: number): ((idx:
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 function getList(str: string): { list: string[]; index: number } | null {
-  for (const sequenceList of sequenceListAry) {
+  for (const sequenceList of getSequenceListAry()) {
     const idx = sequenceList.findIndex(sequenceItem => { return sequenceItem.startsWith(str); });
     if (idx === -1) { continue; }
 
@@ -274,10 +274,13 @@ const dummyNamesLower = [
   "frank",
 ];
 
-const sequenceListAry = [
-  lowerAlphabets, upperAlphabets,
-  daysShort, daysShortLower, days, daysLower,
-  monthsShort, monthsShortLower, months, monthsLower,
-  metaVar, metaVarJp, dummyNames, dummyNamesLower,
-];
+function getSequenceListAry(): string[][] {
+  const sequenceListAry = [
+    lowerAlphabets, upperAlphabets,
+    daysShort, daysShortLower, days, daysLower,
+    monthsShort, monthsShortLower, months, monthsLower,
+    metaVar, metaVarJp, dummyNames, dummyNamesLower,
+  ];
+  return sequenceListAry;
+}
 
