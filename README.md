@@ -65,7 +65,12 @@ bar
 baz
 ```
 
-* 以下のものが利用できます。
+Sequence is configurable. Search for `sequence-number` in the configuration.
+
+![Setting](doc/Setting.png)
+
+
+By default the following are available.
 
 months
 

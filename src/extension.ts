@@ -124,7 +124,7 @@ function genFromSwqList(seqList: string[], sttIdx: number, step: number): ((idx:
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 function getList(str: string): { list: string[]; index: number } | null {
-  for (const sequenceList of sequenceListAry) {
+  for (const sequenceList of getSequenceListAry()) {
     const idx = sequenceList.findIndex(sequenceItem => { return sequenceItem.startsWith(str); });
     if (idx === -1) { continue; }
 
@@ -134,150 +134,10 @@ function getList(str: string): { list: string[]; index: number } | null {
   return null;
 }
 
-const lowerAlphabets = [
-  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-];
-const upperAlphabets = [
-  "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-];
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const daysShort = [
-  "Sun.",
-  "Mon.",
-  "Tue.",
-  "Wed.",
-  "Thu.",
-  "Fri.",
-  "Sat.",
-];
-const daysLower = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
-const daysShortLower = [
-  "sun.",
-  "mon.",
-  "tue.",
-  "wed.",
-  "thu.",
-  "fri.",
-  "sat.",
-];
-
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const monthsShort = [
-  "Jan.",
-  "Feb.",
-  "Mar.",
-  "Apr.",
-  "May",
-  "Jun.",
-  "Jul.",
-  "Aug.",
-  "Sep.",
-  "Oct.",
-  "Nov.",
-  "Dec.",
-];
-const monthsLower = [
-  "january",
-  "february",
-  "march",
-  "april",
-  "may",
-  "june",
-  "july",
-  "august",
-  "september",
-  "october",
-  "november",
-  "december",
-];
-const monthsShortLower = [
-  "jan.",
-  "feb.",
-  "mar.",
-  "apr.",
-  "may",
-  "jun.",
-  "jul.",
-  "aug.",
-  "sep.",
-  "oct.",
-  "nov.",
-  "dec.",
-];
-
-const metaVar = [
-  "foo",
-  "bar",
-  "baz",
-  "qux",
-  "quux",
-  "corge",
-  "grault",
-  "garply",
-  "waldo",
-  "fred",
-  "plugh",
-  "xyzzy",
-  "thud",
-];
-const metaVarJp = [
-  "hoge",
-  "fuga",
-  "piyo",
-  "hogera",
-  "hogehoge",
-];
-const dummyNames = [
-  "Alice",
-  "Bob",
-  "Carol",
-  "Dave",
-  "Ellen",
-  "Frank",
-];
-const dummyNamesLower = [
-  "alice",
-  "bob",
-  "carol",
-  "dave",
-  "Ellen",
-  "frank",
-];
-
-const sequenceListAry = [
-  lowerAlphabets, upperAlphabets,
-  daysShort, daysShortLower, days, daysLower,
-  monthsShort, monthsShortLower, months, monthsLower,
-  metaVar, metaVarJp, dummyNames, dummyNamesLower,
-];
+function getSequenceListAry(): string[][] {
+  const config = vscode.workspace.getConfiguration('SequenceNumberSetting');
+  const userDefinedSequenceListAry = config.get<string[][]>('SequenceList');
+  if (!userDefinedSequenceListAry) { return []; }
+  return userDefinedSequenceListAry;
+}
 
