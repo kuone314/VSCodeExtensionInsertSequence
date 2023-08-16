@@ -1,8 +1,8 @@
 {
-  "name": "sequence-number",
+	"name": "sequence-number",
 	"displayName": "Insert Sequence",
 	"description": "Insert sequence. Numbers,Chars,Months,etc...",
-  "icon": "doc/icon.png",
+	"icon": "doc/icon.png",
 	"version": "1.0.3",
 	"repository": "https://github.com/kuone314/VSCodeExtensionInsertSequence",
 	"publisher": "kuone",
@@ -13,7 +13,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:insert-sequence.execute"
+		"onCommand:insert-sequence.execute"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -22,7 +22,203 @@
 				"command": "insert-sequence.execute",
 				"title": "Insert sequence (number,char,months,etc...)"
 			}
-		]
+		],
+		"configuration": {
+			"title": "sequence-number",
+			"properties": {
+				"SequenceNumberSetting.SequenceList": {
+					"type": "array",
+					"default": [
+						[
+							"a",
+							"b",
+							"c",
+							"d",
+							"e",
+							"f",
+							"g",
+							"h",
+							"i",
+							"j",
+							"k",
+							"l",
+							"m",
+							"n",
+							"o",
+							"p",
+							"q",
+							"r",
+							"s",
+							"t",
+							"u",
+							"v",
+							"w",
+							"x",
+							"y",
+							"z"
+						],
+						[
+							"A",
+							"B",
+							"C",
+							"D",
+							"E",
+							"F",
+							"G",
+							"H",
+							"I",
+							"J",
+							"K",
+							"L",
+							"M",
+							"N",
+							"O",
+							"P",
+							"Q",
+							"R",
+							"S",
+							"T",
+							"U",
+							"V",
+							"W",
+							"X",
+							"Y",
+							"Z"
+						],
+						[
+							"Sunday",
+							"Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday"
+						],
+						[
+							"Sun.",
+							"Mon.",
+							"Tue.",
+							"Wed.",
+							"Thu.",
+							"Fri.",
+							"Sat."
+						],
+						[
+							"sunday",
+							"monday",
+							"tuesday",
+							"wednesday",
+							"thursday",
+							"friday",
+							"saturday"
+						],
+						[
+							"sun.",
+							"mon.",
+							"tue.",
+							"wed.",
+							"thu.",
+							"fri.",
+							"sat."
+						],
+						[
+							"January",
+							"February",
+							"March",
+							"April",
+							"May",
+							"June",
+							"July",
+							"August",
+							"September",
+							"October",
+							"November",
+							"December"
+						],
+						[
+							"Jan.",
+							"Feb.",
+							"Mar.",
+							"Apr.",
+							"May",
+							"Jun.",
+							"Jul.",
+							"Aug.",
+							"Sep.",
+							"Oct.",
+							"Nov.",
+							"Dec."
+						],
+						[
+							"january",
+							"february",
+							"march",
+							"april",
+							"may",
+							"june",
+							"july",
+							"august",
+							"september",
+							"october",
+							"november",
+							"december"
+						],
+						[
+							"jan.",
+							"feb.",
+							"mar.",
+							"apr.",
+							"may",
+							"jun.",
+							"jul.",
+							"aug.",
+							"sep.",
+							"oct.",
+							"nov.",
+							"dec."
+						],
+						[
+							"foo",
+							"bar",
+							"baz",
+							"qux",
+							"quux",
+							"corge",
+							"grault",
+							"garply",
+							"waldo",
+							"fred",
+							"plugh",
+							"xyzzy",
+							"thud"
+						],
+						[
+							"hoge",
+							"fuga",
+							"piyo",
+							"hogera",
+							"hogehoge"
+						],
+						[
+							"Alice",
+							"Bob",
+							"Carol",
+							"Dave",
+							"Ellen",
+							"Frank"
+						],
+						[
+							"alice",
+							"bob",
+							"carol",
+							"dave",
+							"Ellen",
+							"frank"
+						]
+					]
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
