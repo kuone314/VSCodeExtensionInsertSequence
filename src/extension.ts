@@ -1,3 +1,4 @@
+import assert = require('assert');
 import * as vscode from 'vscode';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,59 +24,63 @@ async function commandImpl(editor: vscode.TextEditor) {
   editor.selections = editor.selections.slice().sort(sorter);
   const orgStrs = editor.selections.map(selection => editor.document.getText(selection));
 
-  editor.edit(
-    function (builder) {
-      editor.selections.forEach(function (selection, index) {
-        builder.replace(selection, "");
-      });
-    },
-    { undoStopBefore: false, undoStopAfter: false }
-  );
+  editor.selections = editor.selections.map(
+    selection => new vscode.Selection(selection.end, selection.end));
 
+  let inputedStrs = orgStrs;
 
   const inputOptions: vscode.InputBoxOptions = {
     placeHolder: "e.g. 0/a/Monday/June/foo/003,-6",
     validateInput: function (input) {
-      editImpl(editor, input, orgStrs);
+      inputedStrs = editImpl(editor, input, inputedStrs, orgStrs);
       return "";
     }
   };
 
   vscode.window.showInputBox(inputOptions)
     .then(function (input) {
-      if (input === undefined) { // canceled
-        vscode.commands.executeCommand("undo");
-        return;
-      }
-      editImpl(editor, input, orgStrs);
+      editImpl(editor, input, inputedStrs, orgStrs);
     });
 }
 
-function editImpl(editor: vscode.TextEditor, input: string, orgStrs: string[]) {
-  const strGenerator = parseInput(input) ?? genFromSwqList(orgStrs, 0, 1);
+function editImpl(
+  editor: vscode.TextEditor,
+  input: string | undefined,
+  prebInputed: string[],
+  orgStrs: string[]
+): string[] {
+  const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
+  let selections = editor.selections.slice();
+
+  assert(selections.length === prebInputed.length);
+  assert(selections.length === orgStrs.length);
+
+  for (let index = 0; index < selections.length; index++) {
+    const strNum = prebInputed[index].length;
+    selections[index] = new vscode.Selection(
+      selections[index].start.translate(0, -strNum),
+      selections[index].start
+    );
+  }
+
+
+  const strList = selections.map((_, idx) => strGenerator(idx));
   editor.edit(
     function (builder) {
-      editor.selections.forEach(function (selection, index) {
-        builder.replace(selection, strGenerator(index));
+      selections.forEach(function (selection, index) {
+        builder.replace(selection, strList[index]);
       });
     },
     { undoStopBefore: false, undoStopAfter: false }
   );
-
-  let selections = editor.selections.slice();
-  for (let index = 0; index < selections.length; index++) {
-    const strNum = strGenerator(index).length;
-    selections[index] = new vscode.Selection(
-      selections[index].start,
-      selections[index].start.translate(0, strGenerator(index).length)
-    );
-  }
-  editor.selections = selections;
+  return strList;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-function parseInput(input: string): ((idx: number) => string) | null {
+function parseInput(input: string | undefined): ((idx: number) => string) | null {
+  if (input === undefined) { return null; } // on cancel
+
   const splited = input.split(/[:, ]/);
 
   const stepStr = splited[1] ?? "";
@@ -90,7 +95,7 @@ function parseInput(input: string): ((idx: number) => string) | null {
 
   const seqList = getList(startStr);
   if (seqList) {
-    return genFromSwqList(seqList.list, seqList.index, step);
+    return genFromSeqList(seqList.list, seqList.index, step);
   }
 
   return null;
@@ -114,7 +119,7 @@ function genSequenceNumber(startNum: number, step: number, digit: number): ((idx
   };
 }
 
-function genFromSwqList(seqList: string[], sttIdx: number, step: number): ((idx: number) => string) {
+function genFromSeqList(seqList: string[], sttIdx: number, step: number): ((idx: number) => string) {
   return (idx: number) => {
     const len = seqList.length;
     const adjustedIdx = (sttIdx + idx * step) % len;
