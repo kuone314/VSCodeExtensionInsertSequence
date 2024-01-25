@@ -43,15 +43,11 @@ async function commandImpl(editor: vscode.TextEditor) {
 
   vscode.window.showInputBox(inputOptions)
     .then(function (input) {
-      if (input === undefined) { // canceled
-        vscode.commands.executeCommand("undo");
-        return;
-      }
       editImpl(editor, input, orgStrs);
     });
 }
 
-function editImpl(editor: vscode.TextEditor, input: string, orgStrs: string[]) {
+function editImpl(editor: vscode.TextEditor, input: string | undefined, orgStrs: string[]) {
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   editor.edit(
@@ -75,7 +71,9 @@ function editImpl(editor: vscode.TextEditor, input: string, orgStrs: string[]) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-function parseInput(input: string): ((idx: number) => string) | null {
+function parseInput(input: string | undefined): ((idx: number) => string) | null {
+  if (input === undefined) { return null; } // on cancel
+
   const splited = input.split(/[:, ]/);
 
   const stepStr = splited[1] ?? "";
