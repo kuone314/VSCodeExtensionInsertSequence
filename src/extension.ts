@@ -24,14 +24,8 @@ async function commandImpl(editor: vscode.TextEditor) {
   editor.selections = editor.selections.slice().sort(sorter);
   const orgStrs = editor.selections.map(selection => editor.document.getText(selection));
 
-  editor.edit(
-    function (builder) {
-      editor.selections.forEach(function (selection, index) {
-        builder.replace(selection, "");
-      });
-    },
-    { undoStopBefore: false, undoStopAfter: false }
-  );
+  editor.selections = editor.selections.map(
+    selection => new vscode.Selection(selection.end, selection.end));
 
   let inputedStrs = orgStrs;
 
