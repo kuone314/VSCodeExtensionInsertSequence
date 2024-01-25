@@ -52,7 +52,7 @@ async function commandImpl(editor: vscode.TextEditor) {
 }
 
 function editImpl(editor: vscode.TextEditor, input: string, orgStrs: string[]) {
-  const strGenerator = parseInput(input) ?? genFromSwqList(orgStrs, 0, 1);
+  const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   editor.edit(
     function (builder) {
@@ -90,7 +90,7 @@ function parseInput(input: string): ((idx: number) => string) | null {
 
   const seqList = getList(startStr);
   if (seqList) {
-    return genFromSwqList(seqList.list, seqList.index, step);
+    return genFromSeqList(seqList.list, seqList.index, step);
   }
 
   return null;
@@ -114,7 +114,7 @@ function genSequenceNumber(startNum: number, step: number, digit: number): ((idx
   };
 }
 
-function genFromSwqList(seqList: string[], sttIdx: number, step: number): ((idx: number) => string) {
+function genFromSeqList(seqList: string[], sttIdx: number, step: number): ((idx: number) => string) {
   return (idx: number) => {
     const len = seqList.length;
     const adjustedIdx = (sttIdx + idx * step) % len;
