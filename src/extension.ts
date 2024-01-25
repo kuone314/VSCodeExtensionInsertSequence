@@ -1,3 +1,4 @@
+import assert = require('assert');
 import * as vscode from 'vscode';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +58,9 @@ function editImpl(
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   let selections = editor.selections.slice();
+
+  assert(selections.length === prebInputed.length);
+  assert(selections.length === orgStrs.length);
 
   for (let index = 0; index < selections.length; index++) {
     const strNum = prebInputed[index].length;
