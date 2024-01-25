@@ -37,25 +37,36 @@ async function commandImpl(editor: vscode.TextEditor) {
   const inputOptions: vscode.InputBoxOptions = {
     placeHolder: "e.g. 0/a/Monday/June/foo/003,-6",
     validateInput: function (input) {
-      inputedStrs = editImpl(editor, input, orgStrs);
+      inputedStrs = editImpl(editor, input, inputedStrs, orgStrs);
       return "";
     }
   };
 
   vscode.window.showInputBox(inputOptions)
     .then(function (input) {
-      editImpl(editor, input, orgStrs);
+      editImpl(editor, input, inputedStrs, orgStrs);
     });
 }
 
 function editImpl(
   editor: vscode.TextEditor,
   input: string | undefined,
+  prebInputed: string[],
   orgStrs: string[]
 ): string[] {
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   let selections = editor.selections.slice();
+
+  for (let index = 0; index < selections.length; index++) {
+    const strNum = prebInputed[index].length;
+    selections[index] = new vscode.Selection(
+      selections[index].start.translate(0, -strNum),
+      selections[index].start
+    );
+  }
+
+
   const strList = selections.map((_, idx) => strGenerator(idx));
   editor.edit(
     function (builder) {
@@ -65,16 +76,6 @@ function editImpl(
     },
     { undoStopBefore: false, undoStopAfter: false }
   );
-
-  for (let index = 0; index < selections.length; index++) {
-    const strNum = strGenerator(index).length;
-    selections[index] = new vscode.Selection(
-      selections[index].start,
-      selections[index].start.translate(0, strGenerator(index).length)
-    );
-  }
-  editor.selections = selections;
-
   return strList;
 }
 
