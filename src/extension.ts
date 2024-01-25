@@ -32,11 +32,12 @@ async function commandImpl(editor: vscode.TextEditor) {
     { undoStopBefore: false, undoStopAfter: false }
   );
 
+  let inputedStrs = orgStrs;
 
   const inputOptions: vscode.InputBoxOptions = {
     placeHolder: "e.g. 0/a/Monday/June/foo/003,-6",
     validateInput: function (input) {
-      editImpl(editor, input, orgStrs);
+      inputedStrs = editImpl(editor, input, orgStrs);
       return "";
     }
   };
@@ -51,7 +52,7 @@ function editImpl(
   editor: vscode.TextEditor,
   input: string | undefined,
   orgStrs: string[]
-) {
+): string[] {
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   let selections = editor.selections.slice();
@@ -73,6 +74,8 @@ function editImpl(
     );
   }
   editor.selections = selections;
+
+  return strList;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
