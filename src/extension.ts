@@ -54,16 +54,17 @@ function editImpl(
 ) {
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
+  let selections = editor.selections.slice();
+  const strList = selections.map((_, idx) => strGenerator(idx));
   editor.edit(
     function (builder) {
-      editor.selections.forEach(function (selection, index) {
-        builder.replace(selection, strGenerator(index));
+      selections.forEach(function (selection, index) {
+        builder.replace(selection, strList[index]);
       });
     },
     { undoStopBefore: false, undoStopAfter: false }
   );
 
-  let selections = editor.selections.slice();
   for (let index = 0; index < selections.length; index++) {
     const strNum = strGenerator(index).length;
     selections[index] = new vscode.Selection(
