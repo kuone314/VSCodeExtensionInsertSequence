@@ -47,7 +47,11 @@ async function commandImpl(editor: vscode.TextEditor) {
     });
 }
 
-function editImpl(editor: vscode.TextEditor, input: string | undefined, orgStrs: string[]) {
+function editImpl(
+  editor: vscode.TextEditor,
+  input: string | undefined,
+  orgStrs: string[]
+) {
   const strGenerator = parseInput(input) ?? genFromSeqList(orgStrs, 0, 1);
 
   editor.edit(
