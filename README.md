@@ -51,6 +51,30 @@ z
 <!-- ## Insert sequence somethings -->
 <!-- * 曜日,月名,メタ構文変数の入力を入力できます。 -->
 
+* If separated by a separator, it will be used as a sequence.
+  *  Comma,colon,space can be used as separator.
+  *  Numbers are recognized as step,duplicate options.
+
+input `r,g,b`
+```
+r
+g
+b
+r
+g
+```
+
+input `Cat,Dog,Mouse`
+```
+Cat
+Dog
+Mouse
+Cat
+Dog
+```
+
+* If match to defined sequence, defined sequence is used.
+
 input `June`
 ```
 June
@@ -109,23 +133,36 @@ Alice,Bob,Carol,Dave,Ellen,Frank
 <!-- * カンマ等で区切ることで、ステップ数を指定できます。 -->
   <!-- * 区切りは、カンマ,コロン,スペースが使えます。 -->
 
-## Step
+## Step,Duplicate
 
-* For specify step, separate with comma,colon,space.
+* You can specify steps and duplicate num.
+  *  Comma,colon,space can be used as separator.
 
-input `5,5`
+input `5,s5`, start 5 and step 5.
 ```
 5
 10
 15
 ```
 
-input `Monday 2`
+input `Monday d2`, start Monday and duplicate 2.
 ```
 Monday
+Monday
+Tuesday
+Tuesday
 Wednesday
-Friday
 ```
+
+input `3,d2,s5` or `3,s5,d2` or `3,5,2`, start 3 and step 5,duplicate 2.
+```
+3
+3
+8
+8
+13
+```
+
 
 # Commands
 * insert-sequence.execute
