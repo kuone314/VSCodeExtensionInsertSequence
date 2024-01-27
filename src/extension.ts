@@ -30,7 +30,7 @@ async function commandImpl(editor: vscode.TextEditor) {
   let inputedStrs = orgStrs;
 
   const inputOptions: vscode.InputBoxOptions = {
-    placeHolder: "e.g. 0/a/Monday/June/foo/003,-6",
+    placeHolder: "e.g. '0','a','June','r,g,b','0000,s-25','r,g,b,d2','3,s5,d2','3,5,2'",
     validateInput: function (input) {
       inputedStrs = editImpl(editor, input, inputedStrs, orgStrs);
       return "";
