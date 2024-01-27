@@ -93,6 +93,9 @@ function parseInput(input: string | undefined): ((idx: number) => string) | null
   const remain = (parsedNum === 0)
     ? splited
     : splited.slice(0, -parsedNum);
+  if (remain.length >= 2) {
+    return genFromSeqList(remain, 0, option);
+  }
 
   const startStr = splited[0];
   const startNum = startStr ? parseInt(startStr) : 0;
